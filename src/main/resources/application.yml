@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: springboot-argocd
+  main:
+    allow-bean-definition-overriding: true
