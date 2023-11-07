@@ -16,8 +16,8 @@ spec:
         serviceAccount:
           create: true
         image:
-          repository: prabakaran88/springboot-argocd
-          tag: main
+          repository: innotigers/springboot-argocd
+          tag: latest
           pullPolicy: IfNotPresent
         replicaCount: 1
         resources:
