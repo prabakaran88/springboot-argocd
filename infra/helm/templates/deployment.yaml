@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "spring-debug-app.fullname" . }}
+  name: {{ include "springboot-argocd.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "spring-debug-app.labels" . | nindent 4 }}
+    {{- include "springboot-argocd.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "spring-debug-app.selectorLabels" . | nindent 6 }}
+      {{- include "springboot-argocd.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "spring-debug-app.selectorLabels" . | nindent 8 }}
+        {{- include "springboot-argocd.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "spring-debug-app.serviceAccountName" . }}
+      serviceAccountName: {{ include "springboot-argocd.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

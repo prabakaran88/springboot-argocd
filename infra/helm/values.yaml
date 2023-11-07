@@ -2,7 +2,7 @@ serviceAccount:
   create: true
 
 image:
-  repository: luafanti/spring-boot-debug-app
+  repository: prabakaran88/springboot-argocd
   tag: main
   pullPolicy: IfNotPresent
 

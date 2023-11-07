@@ -4,19 +4,19 @@ metadata:
   name: demo
 spec:
   destination:
-    namespace: sandbox
+    namespace: toolbox
     server: https://kubernetes.default.svc
   project: default
   source:
     path: infra/helm
-    repoURL: https://github.com/luafanti/spring-boot-debug-app
+    repoURL: https://github.com/prabakaran88/springboot-argocd
     targetRevision: main
     helm:
       values: |-
         serviceAccount:
           create: true
         image:
-          repository: luafanti/spring-boot-debug-app
+          repository: prabakaran88/springboot-argocd
           tag: main
           pullPolicy: IfNotPresent
         replicaCount: 1
