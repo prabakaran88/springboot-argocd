@@ -48,7 +48,7 @@ vault secrets enable kv-v2
 # create kv-v2 secret with two keys
 vault kv put kv-v2/demo user="secret_user" password="secret_password" message="Let AUS win this match"
 
-vault kv put kv-v2/rds_service host="postgres" name="name" username="admin" password="admin"
+vault kv put kv-v2/rds_service host="postgres" name="postgres" username="admin" password="admin"
 
 # create policy to enable reading above secret
 vault policy write demo - <<EOF
@@ -344,9 +344,10 @@ One of the greatest things about the plugin is that if the value changes in Vaul
 ```text
 # update secrets in Vault
 vault kv put kv-v2/demo message="finally aussies won the match. Mad Max rocked" user="secret_user_new" password="secret_password_new"
+vault kv put kv-v2/rds_service host="postgres" name="postgres" username="admin" password="admin"
 
 # refresh application as well with target manifests cache
-argocd app get toolbox/demo --hard-refresh
+argocd app get toolbox/springboot-argocd-demo --hard-refresh
 ```
 After Hard refresh you should see that your Argo Application back to status OutOfSync what is expected during Vault secret update. Thanks to this mechanism, you don't have to worry about losing control of keeping your secrets up to date.
 
