@@ -10,6 +10,8 @@ Springboot CRUD Operation with ArgoCD deployment scripts
 ## Vault installation
 For the beginning select toolbox namespace.
 ```text
+# namespace for Vault & ArgoCD
+kubectl create ns toolbox
 kubens toolbox
 ```
 To install Vault we will use the official [Helm chart](https://github.com/hashicorp/vault-helm) provided by HashiCorp.
@@ -32,7 +34,7 @@ kubectl port-forward vault-0 8200
 git bash
 export VAULT_ADDR=http://127.0.0.1:8200
 powershell
-$env:VAULT_ADDR=http://127.0.0.1:8200
+$env:VAULT_ADDR='http://127.0.0.1:8200'
 
 vault status
 vault login root
@@ -46,9 +48,17 @@ vault secrets enable kv-v2
 # create kv-v2 secret with two keys
 vault kv put kv-v2/demo user="secret_user" password="secret_password" message="Let AUS win this match"
 
+vault kv put kv-v2/rds_service host="postgres" name="name" username="admin" password="admin"
+
 # create policy to enable reading above secret
 vault policy write demo - <<EOF
 path "kv-v2/data/demo" {
+  capabilities = ["read"]
+}
+EOF
+
+vault policy write rds_service - <<EOF
+path "kv-v2/data/rds_service" {
   capabilities = ["read"]
 }
 EOF
@@ -63,7 +73,7 @@ vault auth enable kubernetes
 kubectl exec -it vault-0 sh
 vault write auth/kubernetes/config token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt disable_local_ca_jwt=true
 # create authenticate Role for ArgoCD
-vault write auth/kubernetes/role/argocd bound_service_account_names=argocd-repo-server bound_service_account_namespaces=toolbox policies=demo ttl=200h
+vault write auth/kubernetes/role/argocd bound_service_account_names=argocd-repo-server bound_service_account_namespaces=toolbox policies=demo,rds_service ttl=200h
 
 # exit out of container
 exit
