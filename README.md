@@ -4,7 +4,8 @@ Springboot CRUD Operation with ArgoCD deployment scripts
 ## Pre-requisites
 1. Install minikube into your local machine. [Installation Guide](https://minikube.sigs.k8s.io/docs/start/)
 2. Install kubectl into your local machine.[Installation Guide](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
-3. Also encourage you to install [kubectx + kubens](https://github.com/ahmetb/kubectx) to navigate Kubernetes easily.
+3. Install helm into your local machine.[Installation Guide](https://helm.sh/docs/intro/install/)
+4. Also encourage you to install [kubectx + kubens](https://github.com/ahmetb/kubectx) to navigate Kubernetes easily.
 
 ## Vault installation
 For the beginning select toolbox namespace.
