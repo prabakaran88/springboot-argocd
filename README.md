@@ -338,7 +338,7 @@ Open argocd and verify application is up and running
 https://localhost:8080/applications/toolbox/springboot-argocd-demo
 
 # use port other than 8080 as the tunnel to Argo already uses this port
-kubectl port-forward -n toolbox svc/demo-spring-debug-app 8090:8080
+kubectl port-forward -n toolbox svc/springboot-argocd-demo 8090:8080
 ```
 One of the greatest things about the plugin is that if the value changes in Vault, ArgoCD will notice these changes and display `OutOfSync` status. Let's prove it.
 ```text
