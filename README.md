@@ -377,4 +377,6 @@ minikube image load <imagename>:<version> --daemon
 minikube image load innotigers/springboot-argocd:latest
 minikube image rm image innotigers/springboot-argocd:latest
 minikube image ls
+
+kubectl get secrets/example-secret -o yaml
 ```
