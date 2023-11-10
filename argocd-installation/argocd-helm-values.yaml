@@ -1,3 +1,4 @@
+#3. we have to install ArgoCD from the official Helm Chart but with extra configuration that provides modifications required to install argocd-vault-plugin via sidecar container.
 repoServer:
   rbac:
     - verbs:

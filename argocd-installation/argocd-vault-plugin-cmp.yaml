@@ -1,3 +1,4 @@
+#1. Create k8s Secret with authorization configuration that argocd-vault-plugin will use.
 apiVersion: v1
 kind: ConfigMap
 metadata:
