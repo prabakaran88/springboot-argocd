@@ -84,6 +84,12 @@ vault read auth/kubernetes/config
 # read configured ArgoCD authenticate Role for verification
 vault read auth/kubernetes/role/argocd
 ```
+
+## Postgres Installation
+```text
+kubectl apply -f ./infra/postgres/postgres-deployment.yaml
+```
+
 ## ArgoCD & Vault Plugin Installation
 Time for the main actor of this article - [Argo CD Vault Plugin](https://github.com/argoproj-labs/argocd-vault-plugin) It will be responsible for injecting secrets from the Vault into Helm Charts. In addition to Helm Charts, this plugin can handle secret injections into pure Kubernetes manifests or `Kustomize` templates. Here we will focus only on Helm Charts. Different sources required different installations, which you can find in plugin documentation.
 
@@ -352,12 +358,10 @@ argocd app get toolbox/springboot-argocd-demo --hard-refresh
 After Hard refresh you should see that your Argo Application back to status OutOfSync what is expected during Vault secret update. Thanks to this mechanism, you don't have to worry about losing control of keeping your secrets up to date.
 
 ## Reference
-1. https://dev.to/luafanti/injecting-secrets-from-vault-into-helm-charts-with-argocd-49k
-2. https://luafanti.medium.com/injecting-secrets-from-vault-into-helm-charts-with-argocd-43fc1df57e74#:~:text=Vault%20setup,inject%20later%20into%20Helm%20Charts.&text=Now%20we%20need%20to%20create,will%20authenticate%20ArgoCD%20in%20Vault.
-3. https://piotrminkowski.com/2022/08/08/manage-secrets-on-kubernetes-with-argocd-and-vault/
-4. https://github.com/luafanti/arogcd-vault-plugin-with-helm/tree/main
-5. https://github.com/argoproj-labs/argocd-vault-plugin/issues/495
-6. https://verifa.io/blog/comparing-methods-for-accessing-secrets-in-vault-from-kubernetes/index.html
+1. https://external-secrets.io/latest/introduction/overview/#running-multiple-controller
+2. https://github.com/digitalocean/Kubernetes-Starter-Kit-Developers/blob/main/06-kubernetes-secrets/external-secrets-operator.md
+3. https://faun.pub/vault-integration-with-kubernetes-using-external-secrets-operator-7e13a78db406
+4. https://verifa.io/blog/comparing-methods-for-accessing-secrets-in-vault-from-kubernetes/index.html
 
 ## useful commands
 ```text
@@ -365,18 +369,14 @@ minikube start
 minikube unpause 
 minikube dashboard 
 
-docker build --tag=springboot-argocd:latest --rm=true .
-docker tag springboot-argocd:latest innotigers/springboot-argocd:latest
-docker run -it --rm -p 8080:8080 -p 8081:8081 innotigers/springboot-argocd:latest
+docker build --tag=innotigers/springboot-eso:latest --rm=true .
 
-docker login docker.io
-docker push innotigers/springboot-argocd:latest
+minikube image load innotigers/springboot-eso:latest
+minikube image rm image innotigers/springboot-eso:latest
+minikube image ls
 
 minikube image rm image <imagename>:<version>  
 minikube image load <imagename>:<version> --daemon
-minikube image load innotigers/springboot-argocd:latest
-minikube image rm image innotigers/springboot-argocd:latest
-minikube image ls
 
-kubectl get secrets/example-secret -o yaml
+kubectl get secrets/demo-secret -o yaml
 ```
