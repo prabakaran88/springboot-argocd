@@ -89,6 +89,8 @@ vault read auth/kubernetes/role/argocd
 ```text
 kubectl apply -f ./infra/postgres/postgres-deployment.yaml
 ```
+## How AVP Works?
+![Alt text](avp_how_it_works.png?raw=true "How it works?")
 
 ## ArgoCD & Vault Plugin Installation
 Time for the main actor of this article - [Argo CD Vault Plugin](https://github.com/argoproj-labs/argocd-vault-plugin) It will be responsible for injecting secrets from the Vault into Helm Charts. In addition to Helm Charts, this plugin can handle secret injections into pure Kubernetes manifests or `Kustomize` templates. Here we will focus only on Helm Charts. Different sources required different installations, which you can find in plugin documentation.
