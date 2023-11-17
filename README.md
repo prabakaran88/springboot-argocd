@@ -362,7 +362,7 @@ After Hard refresh you should see that your Argo Application back to status OutO
 2. https://github.com/digitalocean/Kubernetes-Starter-Kit-Developers/blob/main/06-kubernetes-secrets/external-secrets-operator.md
 3. https://faun.pub/vault-integration-with-kubernetes-using-external-secrets-operator-7e13a78db406
 4. https://verifa.io/blog/comparing-methods-for-accessing-secrets-in-vault-from-kubernetes/index.html
-
+5. https://argocd-vault-plugin.readthedocs.io/en/stable/backends/
 ## useful commands
 ```text
 minikube start
